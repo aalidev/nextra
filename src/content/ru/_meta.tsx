@@ -1,5 +1,4 @@
 import type { MetaRecord } from 'nextra'
-import { TitleBadge } from '@/components/TitleBadge'
 
 export default {
   index: {
@@ -12,25 +11,14 @@ export default {
       toc: false,
     },
   },
-  introduction: {
+  docs: {
+    title: 'Документации',
     type: 'page',
     theme: {
       copyPage: false,
       navbar: true,
-      toc: false,
+      toc: true,
     },
   },
-  docs: {
-    title: '📦 示例代码',
-    type: 'page',
-  },
-  upgrade: {
-    title: (
-      <span className="flex items-center leading-[1]">
-        新变化
-        <TitleBadge />
-      </span>
-    ),
-    type: 'page',
-  },
+
 } satisfies MetaRecord

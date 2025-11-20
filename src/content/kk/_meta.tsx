@@ -1,5 +1,4 @@
 import type { MetaRecord } from 'nextra'
-import { TitleBadge } from '@/components/TitleBadge'
 
 export default {
   index: {
@@ -13,7 +12,7 @@ export default {
     },
   },
   docs: {
-    title: 'Documentation',
+    title: 'құжаттама',
     type: 'page',
     theme: {
       copyPage: false,

@@ -2,17 +2,16 @@ import type { Metadata } from 'next'
 
 
 import type { I18nLangAsyncProps, I18nLangKeys } from '@/i18n'
-import { GoogleAnalytics } from '@next/third-parties/google'
+// import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
-import { Footer, LastUpdated, Layout, Navbar } from 'nextra-theme-docs'
+import { Footer, LastUpdated, Layout, LocaleSwitch, Navbar } from 'nextra-theme-docs'
 import { Banner, Head, Search } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import { CustomFooter } from '@/components/CustomFooter'
 import { useServerLocale } from '@/hooks'
-import LocaleToggle from '@/widgets/locale-toggle'
 import ThemeToggle from '@/widgets/theme-toggle'
 
-import { getDictionary, getDirection } from '../_dictionaries/get-dictionary'
+import { getDictionary } from '../_dictionaries/get-dictionary'
 import { ThemeProvider } from './_components/ThemeProvider'
 import './styles/index.css'
 
@@ -58,29 +57,11 @@ const CustomNavbar = async ({ lang }: I18nLangAsyncProps) => {
       projectLink={repo}
     >
       <>
-        <LocaleToggle className="max-md:hidden" />
+        <LocaleSwitch />
         <ThemeToggle className="max-md:hidden" />
       </>
 
     </Navbar>
-  )
-}
-
-const BaiduTrack = () => {
-  return (
-    <>
-      <Script strategy="afterInteractive">
-        {`
-          var _hmt = _hmt || [];
-          (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?d5ad5e04e6af914c01767926567602be";
-            var s = document.getElementsByTagName("script")[0]; 
-            s.parentNode.insertBefore(hm, s);
-          })();
-        `}
-      </Script>
-    </>
   )
 }
 
@@ -110,7 +91,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
       // Required to be set
       // dir="ltr"
       // Suggested by `next-themes` package https://github.com/pacocoursey/next-themes#with-app
-      dir={getDirection(lang)}
+      dir="ltr"
       suppressHydrationWarning
     >
       <Head
@@ -160,11 +141,15 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
             )}
             i18n={[
               { locale: 'en', name: 'English' },
-              { locale: 'zh', name: '简体中文' },
+              { locale: 'ru', name: 'Русский' },
+              { locale: 'kk', name: 'Қазақша' },
             ]}
             toc={{
               backToTop: t('backToTop'),
               title: t('pageTitle'),
+            }}
+            sidebar={{
+              toggleButton: false,
             }}
             pageMap={pageMap}
             feedback={{ content: '' }}
@@ -174,8 +159,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
           </Layout>
         </ThemeProvider>
       </body>
-      <GoogleAnalytics gaId="G-VCR6017LB8" />
-      <BaiduTrack />
+      {/* <GoogleAnalytics gaId="G-VCR6017LB8" /> */}
     </html>
   )
 }
